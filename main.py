@@ -5,9 +5,19 @@ import time
 import json
 import sys
 
+default_config = """
+{"username": "Minnesobot", "password": "password", "subreddits": ["funny", "AskReddit", "pics", "todayilearned", "worldnews", "science", "IamA", "blog", "Favors"], "match_text": ["minnesota karma train"], "reply_count": 4, "last_checked": {"funny": "cn58ywd", "todayilearned": "cn58yyu", "science": "cn58yrz", "IamA": "cn58z2w", "pics": "cn58yzm", "blog": "cn58y80", "AskReddit": "cn58yyz", "Favors": "cn58el8", "worldnews": "cn58yzc"}, "already_done": ["cn4x8r6", "cn4vzjf", "cn4xrl6", "cn4xt7x"], "reply_text": "Let me just leave this here -> [this](http://i.imgur.com/VVmvVDb.gif)"}
+"""
+
 print "Loading data..."
-f = open("config","r")
-config = json.loads(f.read())
+try:
+	f = open("config","r")
+	config_data = f.read()
+except IOError:
+	f = open("config","w")
+	f.write(default_config)
+	config_data = default_config
+config = json.loads(config_data)
 f.close()
 
 subreddits = config["subreddits"] #Use this for testing
